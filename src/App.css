@@ -1,3 +1,265 @@
+/*************************************/
+/** Common***********************/
+/******************************/
+ul{
+  margin-bottom: 0px;
+}
+.bg-dark-blue{
+  background : #263e4d
+}
+.bg-green{
+  background : #6edaa1;
+  border-color:#6edaa1;
+}
+.fullheight{
+  height:100vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg-body-color{
+  background:#2d4a5b;
+}
+.text-green{
+  color: #6edaa1;
+}
+.bg-dark-red{
+  background : #cc2a36;
+  border-color:#cc2a36;
+}
+.bg-grey{
+  background:#96a1a8; 
+  border-color:#96a1a8;
+}
+.bg-transparent{
+  background: transparent;
+}
+.w-55{
+   width : 55%;
+}
+.input-field-wrap{
+  position: relative;
+}
+.input-field-wrap.transparent .input-label {
+  background: #fff;
+  color: #777;
+}
+.form .input-style{
+  height: 45px;
+  border: 1px solid #aeadad;
+  background: transparent;
+  color:#fff;
+  box-shadow: none !important;
+  border-radius: 0px;
+  outline:0px !important;
+  font-size: 14px;
+}
+.form .select-style{
+  height:45px;
+  border: 1px solid #aeadad;
+  border-radius: 0px;
+  outline:0px !important;
+}
+.form .transparent .input-style{
+  color:#000;
+}
+.border-red{
+  border:1px solid #cc2a36;
+}
+.as-body {
+  padding: 2.5rem 1.5rem;
+}
+.btn-md{
+  width: 170px;
+display: block;
+height: 40px;
+text-align: center;
+border-radius: 5px;
+border: 2px solid;
+}
+.react-datepicker-wrapper .react-datepicker__input-container input{
+  height:45px;
+  width:100%;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+.input-label {
+  z-index:1; 
+  position: absolute;
+  left: 15px;
+  color: #aaa;
+  font-size: 13px;
+  top: -10px;
+  background: #263e4d;
+  padding:0px 10px;
+}
+
+.form .input-style:focus{
+  border: 1px solid #6edaa1 !important;
+  color:#fff;
+  box-shadow: none;
+}
+.form .transparent .input-style:focus{
+  color:#000;
+}
+.as-fields-wrap .input-field-wrap{
+width:100%;
+}
+.address-info ul{
+  padding-left: 0px;
+}
+.no-dashboard a{
+  color:#6edaa1;
+}
+.react-datepicker-wrapper{
+  width:100%;
+}
+.as-body{
+ 
+}
+.as-title{
+  font-weight:600;
+  padding-left: 10px;
+}
+.as-header svg{
+  color: #6edaa1;
+}
+.as-fields-wrap ul{
+flex-wrap:wrap;
+}
+.as-fields-wrap li{
+ list-style: none;
+}
+.as-fields-wrap li{
+  margin-top: 10px;
+}
+.as-fields-wrap li:nth-child(1),
+.as-fields-wrap li:nth-child(2){
+  margin-top:0px;
+}
+
+.as-fields-wrap svg {
+  color: #6edaa1;
+}
+.as-fields-wrap ul li .as-text {
+  padding: 0px 8px;
+  display: flex;
+}
+
+
+
+.form .alert-danger { 
+  background-color: #fb4152;
+  border-color: #fb4152;
+  border-radius: 0px;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 14px;
+}
+.as-profile-img{
+  width:150px;
+  height:150px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.no-dashboard {
+  height: 100vh;
+
+}
+
+.radio {
+  position: relative;
+  cursor: pointer;
+  line-height: 20px;
+  font-size: 14px;
+  margin: 25px 25px 0px 0px;
+}
+.radio .label {
+  position: relative;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #c8ccd4;
+  border-radius: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.input-label.radio-label {
+  padding-left: 0px;
+  left: 0;
+}
+.radio .label:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: #6edaa1;
+  transform: scale(0);
+  transition: all 0.2s ease;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.radio:hover .label:after {
+  transform: scale(3.6);
+}
+input[type="radio"]:checked + .label {
+  border-color: #6edaa1;
+}
+input[type="radio"]:checked + .label:after {
+  transform: scale(1);
+  transition: all 0.2s cubic-bezier(0.35, 0.9, 0.4, 0.9);
+  opacity: 1;
+}
+/* .cntr {
+  position: absolute;
+  top: calc(50% - 10px);
+  left: 0;
+  width: 100%;
+  text-align: center;
+} */
+.hidden {
+  display: none;
+}
+.credit {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  opacity: 0.6;
+}
+.credit img {
+  width: 72px;
+}
+.credit:hover {
+  transform: scale(0.95);
+}
+
+
+
+
+
+
+
+.nav-profile-img {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #605f5f;
+  border-radius: 50%;
+  margin: 0px 7px 0px 0px;
+}
+.nav-custom-btn {
+  background: transparent;
+  border: 0px;
+  padding: 0px 20px;
+}
+
 .App {
   text-align: center;
 }
@@ -23,6 +285,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.form-logo{
+  display: block;
+}
 
 .App-link {
   color: #61dafb;
@@ -35,4 +300,98 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navBarSidebar {
+  height: 100%;
+width: 0;
+position: fixed;
+z-index: 1;
+top: 0;
+left: 0;
+background-color: #111;
+overflow-x: hidden;
+transition: 0.5s;
+padding-top: 60px;
+transition: all 0.3s ease-in-out;
+}
+#sidebarCollapse {
+  background: none;
+  border: 0px;
+  padding: 0px;
+  height: 30px;
+  box-shadow: none !important;
+}
+#sidebarCollapse .fa-bars {
+  font-size: 31px;
+}
+
+#main-content,
+#mainNav{ 
+  transition: all 0.3s ease-in-out;
+}
+.active-sidebar#main-content,
+.active-sidebar#mainNav{
+margin-left:250px;
+}
+.active-sidebar .navBarSidebar{
+  width:250px;
+}
+.sidebar-inner{
+  border-radius: 5px;
+}
+.sidebar-list{
+  list-style: none;
+}
+.sidebar-list li a {
+  list-style: none;
+  display: flex;
+  width: 100%;
+  padding: 8px 15px;
+  border-bottom: 1px solid #ccc;
+  color: #263e4d;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none !Important;
+}
+.show > .btn-primary.dropdown-toggle,
+.nav-custom-btn:hover,
+.nav-custom-btn:active,
+.nav-custom-btn:focus,
+.nav-custom-btn {
+  background: transparent;
+  padding: 0px;
+  box-shadow: none !Important;
+}
+
+.sidebar-list li:last-child a{
+  border-bottom:0px;
+}
+.profile-dropdown a,
+.dropdown-menu a {
+  text-decoration: none !Important;
+  padding: 8px 10px;
+  border-bottom: 1px solid #808080;
+  width: 100%;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  color: #fff;
+}
+.profile-dropdown,
+.dropdown-menu {
+  padding: 0px;
+  margin: 0px;
+  left: -45px;
+  background: #2d4a5b;
+  box-shadow:none;
+  top: 45px;
+}
+.profile-dropdown  .link-text,
+.dropdown-menu  .link-text{
+  padding-left:5px;
+}
+.sidebar-list li.active a {
+  background: #f7f7f7;
+  color: #6edaa1;
 }
