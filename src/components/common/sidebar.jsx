@@ -21,12 +21,7 @@ export function sidebar() {
                             Change Password
                      </Link>
                     </li>
-                    <li className={isActiveLink === "addresses" &&
-                        "active"}>
-                        <Link to="/addresses">
-                            Addresses
-                     </Link>
-                    </li>
+                  
                 </ul>
             </div>
         </nav>

@@ -12,7 +12,7 @@ ul{
   border-color:#6edaa1;
 }
 .fullheight{
-  height:100vh;
+  min-height:100vh;
   display:flex;
   justify-content: center;
   align-items: center;
@@ -303,12 +303,13 @@ input[type="radio"]:checked + .label:after {
 }
 
 .navBarSidebar {
+  left:-100%;
   height: 100%;
-width: 0;
+width: 250px;
 position: fixed;
 z-index: 1;
 top: 0;
-left: 0;
+left: -100%;
 background-color: #111;
 overflow-x: hidden;
 transition: 0.5s;
@@ -332,10 +333,10 @@ transition: all 0.3s ease-in-out;
 }
 .active-sidebar#main-content,
 .active-sidebar#mainNav{
-margin-left:250px;
+left: 250px;
 }
 .active-sidebar .navBarSidebar{
-  width:250px;
+  left:0px
 }
 .sidebar-inner{
   border-radius: 5px;
@@ -394,4 +395,7 @@ margin-left:250px;
 .sidebar-list li.active a {
   background: #f7f7f7;
   color: #6edaa1;
+}
+.password-wrap{
+min-width:1048px;
 }

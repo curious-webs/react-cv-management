@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useContext } from "react";
 import _ from "lodash";
 import Joi from "joi";
 import Input from '../common/Input';
@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import Moment from 'moment';
 import myCustomJoi from 'joi-phone-number';
 import axios from 'axios';
+import UserContext from './../../context/userContext';
 const myJoi = Joi.extend(myCustomJoi);
 class Form extends Component {
     state = {
@@ -58,6 +59,12 @@ class Form extends Component {
         }
     }
     handleChange = async ({ currentTarget: input }) => {
+
+console.log("here in handle change function we are trying to modify context value right. Hope so it works");
+console.log(this.context);
+
+
+
 
         const errors = {};
 
@@ -125,7 +132,8 @@ class Form extends Component {
     }
 
     renderInput = (name, label, type = "text", fieldClass = "not-transparent", onBlurEvent = false) => {
-
+console.log("am here in renderig input");
+console.log(this.context.gender);
 
         if (this.props.fieldValues) {
             // console.log("here goes field values");
@@ -134,7 +142,7 @@ class Form extends Component {
             const { errors, data } = this.props.fieldValues;
             // console.log("here goes data");
             // console.log(data);
-
+           
             return (
                 <Input
                     name={name}
@@ -145,6 +153,7 @@ class Form extends Component {
                     onChange={this.props.onValChange}
                     errors={errors[name]}
                     onBlur={onBlurEvent}
+                   
                 />
             );
         } else {

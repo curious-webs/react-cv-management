@@ -72,40 +72,38 @@ class ChangePassword extends Form {
     }
     render() {
         return (<React.Fragment>
-            <div className="pt-5 mt-5">
-                <div className="pt-5 pb-5">
-                    <div className="profile-settings-wrap bg-dark-blue">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-4">
-                                    {sidebar()}
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="card">
-                                        <div class="card-body p-0">
-                                            <div className="as-header card-header text-muted">
-                                                <span className="h6 as-title">Change Password</span>
-                                            </div>
-                                            <form className="form" onSubmit={this.handleSubmit}>
-
-                                                <div className="d-flex align-items-start as-body">
-
-                                                    <div className="profile-info as-fields-wrap w-100">
-                                                        <ul className="pl-0 w-100 d-flex align-items-center">
-                                                            <li className="d-flex w-55">
-                                                                {this.renderInput("password", "New Password", "text", "transparent")}
-                                                            </li>
-                                                            <li className="d-flex w-55">
-                                                                {this.renderInput("confirmPassword", "Confirm Pasword", "text", "transparent")}
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div className="as-footer d-flex card-footer text-muted">
-                                                    {this.renderButton("Change Password", "submit", "bg-green btn-md text-white ml-auto", false)}
-                                                </div>
-                                            </form>
+            <div id="main-content" className="pt-5 bg-body-color fullheight">
+                <div className="profile-settings-wrap password-wrap">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-4">
+                                {sidebar()}
+                            </div>
+                            <div className="col-md-8">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div className="as-header card-header text-muted">
+                                            <span className="h6 as-title">Change Password</span>
                                         </div>
+                                        <form className="form" onSubmit={this.handleSubmit}>
+
+                                            <div className="d-flex align-items-start as-body">
+
+                                                <div className="profile-info as-fields-wrap w-100">
+                                                    <ul className="pl-0 w-100 d-flex align-items-center">
+                                                        <li className="d-flex w-100">
+                                                            {this.renderInput("password", "New Password", "text", "transparent")}
+                                                        </li> 
+                                                        <li className="d-flex w-100">
+                                                            {this.renderInput("confirmPassword", "Confirm Pasword", "text", "transparent")}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className="as-footer d-flex card-footer text-muted">
+                                                {this.renderButton("Change Password", "submit", "bg-green btn-md text-white ml-auto", false)}
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +111,7 @@ class ChangePassword extends Form {
                     </div>
                 </div>
             </div>
-        </React.Fragment>);
+        </React.Fragment >);
     }
 }
 

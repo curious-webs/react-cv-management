@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import React, { Component } from 'react';
+import React, { Component,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './common/form';
 import { sidebar } from './common/sidebar';
@@ -18,11 +18,11 @@ import cNumber from 'joi-phone-number';
 import { toast } from 'react-toastify';
 import { withRouter } from "react-router-dom";
 import { updateProfileImg } from './../services/profileImgService';
+import UserContext from './../context/userContext';
 const myJoi = Joi.extend(cNumber);
 class ProfileDashboard extends Form {
     state = {
         data: {},
-        profileImg: {},
         isButtonClicked: false,
         errors: {}
     }
@@ -51,11 +51,9 @@ class ProfileDashboard extends Form {
         this.setState({ isButtonClicked: true });
     }
     handleBack = () => {
-
         console.log("handleBack called");
         this.setState({ isButtonClicked: false });
     }
-
 
     componentDidMount = async () => {
         console.log("hey am in mount ");
@@ -64,6 +62,7 @@ class ProfileDashboard extends Form {
     }
 
     doSubmit = async (e) => {
+    
         console.log("do submit called")
         e.preventDefault();
         console.log(this.state.data);
@@ -71,24 +70,12 @@ class ProfileDashboard extends Form {
         try {
             console.log("inside try vlovk");
             let result = await editProfile(this.state.data);
+// console.log("hmm here we are after submitting lets update whole state of app.js")
+// console.log(userContext);
+
             console.log("here goes result");
             console.log(result);
-            if (Object.keys(this.state.profileImg).length != 0) {
-                console.log("here goes profileImg state");
-                console.log(this.state.profileImg);
-                const formData = new FormData();
-                formData.append(
-                    "profileImg",
-                    this.state.data.profileImg
-                );
-                console.log("here goes forData");
-                console.log(formData);
-                let imgUpdate = await updateProfileImg(formData);
-                console.log("here goes image updated");
-                console.log(imgUpdate);
-                data["profileImg"] = imgUpdate.data.profileImg;
-                this.setState({ data });
-            }
+           this.setState({ data });
             toast.success("Profile Updated Successfully!!");
         } catch (e) {
             console.log("inside you catch block are");
@@ -102,17 +89,13 @@ class ProfileDashboard extends Form {
         console.log("Here in profile dashboard renderig props");
         console.log(this.props);
         console.log("checking form component");
-        console.log(this.props.formComponent);
+        console.log(this.props);
         let user = this.state.data;
         let formattedBirthDate = "";
         if (user.dateOfBirth) {
             formattedBirthDate = Moment(user.dateOfBirth).format("LL");
         }
         let { isButtonClicked } = this.state;
-        console.log(user);
-        console.log("hmmm getting image from state");
-        console.log(user.profileImg);
-        let {onFileAppChange} = this.props;
         return (<React.Fragment>
             <div id="main-content" className="pt-5 bg-body-color fullheight">
                 <div className="profile-settings-wrap">
@@ -130,10 +113,7 @@ class ProfileDashboard extends Form {
                                                 <span className="h6 as-title">Profile Information</span>
                                             </div>
                                             <div className="d-flex align-items-center as-body">
-                                                <div className="as-image-wrap">
-                                                    {!user.profileImg && <img ref="file" className="as-profile-img" src={userIconImg} alt={user.userName} />}
-                                                    {user.profileImg && <img ref="file" className="as-profile-img" src={user.profileImg} alt={user.userName} />}
-                                                </div>
+                                               
                                                 <div className="profile-info as-fields-wrap">
                                                     <ul className="d-flex align-items-center">
                                                         <li className="d-flex align-items-center  w-50 pr-2">
@@ -212,7 +192,6 @@ class ProfileDashboard extends Form {
                                 <EditProfile
                                     onGoBack={this.handleBack}
                                     onFileChange={this.handleFileChange}
-                                    onFileAppChange={onFileAppChange}
                                     onDateChange={this.handleDateChange}
                                     onValChange={this.handleChange}
                                     fieldValues={this.state}

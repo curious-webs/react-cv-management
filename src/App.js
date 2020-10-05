@@ -17,12 +17,13 @@ import ResetPassword from './components/reset-password';
 import ResendVerificationLink from './components/resendVerificationLink';
 import ProfileDashboard from './components/profile-dashboard';
 import EditProfile from './components/edit-profile';
-import Addresses from './components/addresses';
 import {updateProfileImg} from './services/profileImgService';
 import {userInfo} from './services/userInfoService';
 import ChangePassword from './components/change-password';
 import Input from './components/common/Input';
 import Form from './components/common/form';
+import {handleChange} from './components/common/form';
+import UserContext from './context/userContext';
 
 class App extends Component {
   state = {
@@ -36,24 +37,38 @@ class App extends Component {
     this.setState ({data: user.data});
   };
 
-  handleProfileImage = async ({ currentTarget: input }) => {
+
+  ComponentDidUpdate = async (prevProps) => {
+    console.log("app.js app.js  app.js  app.js  app.js  app.js Component did mount")
+    let user = await userInfo (auth.getUser ());
+    this.setState ({user: user.data});
+  }
+ 
+  handleAppChange = async ({currentTarget: input}) => {};
+
+  handleProfileImage = async ({currentTarget: input}) => {
     console.log ('Working in profile Image function of app.js');
-  
+
     let user = {...this.state.user};
-    user["profileImg"] = input.files[0];
-    this.setState({user});
+    user['profileImg'] = input.files[0];
+    this.setState ({user});
   };
 
   render () {
     const {user} = this.state;
+    console.log ('inside app file rendering app.js state');
+    console.log (this.state.user);
     return (
       <React.Fragment>
         <ToastContainer />
-        {auth.isLogin () && <NavBar user={user} />}
+        {auth.isLogin () && <NavBar user={this.state.user} />}
         <Switch>
           {auth.isLogin () &&
             <React.Fragment>
+            
+
               <Route path="/dashboard" component={Dashboard} />
+              {/* <UserContext.Provider value={this.state.data}> */}
 
               <Route
                 path="/editprofile"
@@ -63,17 +78,15 @@ class App extends Component {
                 path="/profile"
                 render={props => (
                   <ProfileDashboard
-                  formComponent = {<Form/>}
+                    formComponent={<Form />}
                     user={user}
                     onFileAppChange={this.handleProfileImage}
                   />
                 )}
               />
+              {/* </UserContext.Provider> */}
 
-              <Route
-                path="/addresses"
-                render={props => <Addresses user={user} />}
-              />
+            
               <Route
                 path="/change-password"
                 render={props => <ChangePassword user={user} />}

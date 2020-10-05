@@ -13,6 +13,7 @@ import { editProfile } from '../services/editProfileService';
 import * as auth from "../services/authService";
 import Joi from 'joi';
 import cNumber from 'joi-phone-number';
+import UserContext from './../context/userContext';
 const myJoi = Joi.extend(cNumber);
 class EditProfile extends Form {
 
@@ -30,6 +31,7 @@ class EditProfile extends Form {
         //   console.log("here checking state");
         //   console.log(this.state); 
     }
+    // static contextType = UserContext;
     schema = {
         userName: Joi.string()
             .min(4)
@@ -52,6 +54,8 @@ class EditProfile extends Form {
 
     }
     componentDidMount = async () => {
+        console.log("hey am mounting in edit profile hope so");
+        // console.log(this.context);
         // try {
         //     let user = auth.getUser();
         //     let profile = await userInfo(user);
@@ -77,13 +81,18 @@ class EditProfile extends Form {
     //     }
 
     // }
-
+    componentDidUpdate = () => {
+        console.log("hehhhhhh ccoompone did mount in editProfile Component");
+        console.log("also rendering state");
+         console.log(this.state);
+    }
     render() {
-        console.log("profile image goes");
-        let { profileImg } = this.props;
+      
         console.log(this.props);
         const today = new Date();
         return (<React.Fragment>
+
+
             <div className="col-md-8">
                 <div class="card">
                     <div class="card-body p-0">
@@ -94,24 +103,6 @@ class EditProfile extends Form {
                         <form className="form" onSubmit={this.props.onFormSubmit}>
 
                             <div className="d-flex align-items-start as-body">
-                                <div className="as-image-wrap">
-                                    {this.props.fieldValues.data.profileImg && Object.keys(this.props.fieldValues.profileImg).length===0 &&
-                                        <img ref="file" className="as-profile-img"
-                                            src={this.props.fieldValues.data.profileImg}
-                                            alt={this.props.userName} />
-                                    }
-                                    {Object.keys(this.props.fieldValues.profileImg).length!==0 &&
-                                        <img ref="file"
-                                            className="as-profile-img"
-                                            src={this.props.fieldValues.profileImg}
-                                            alt={this.props.userName} />
-                                    }
-
-                                    {!this.props.fieldValues.data.profileImg &&
-                                        <img src={userIconImg} className="as-profile-img" alt="profile" />
-                                    }
-                                    {this.renderFileButton()}
-                                </div>
                                 <div className="profile-info as-fields-wrap">
                                     <ul className="d-flex align-items-center">
                                         <li className="d-flex w-50 pr-1">
@@ -127,7 +118,7 @@ class EditProfile extends Form {
                                             {this.renderDateField("dateOfBirth", "dateOfBirth", today, "Date of Birth", "transparent")}
                                         </li>
                                         <li className="d-flex w-100 radio-btns-wrap">
-                                            {/* <FaMale /> */}
+
 
                                             <div className="input-field-wrap mb-4 transparent">
                                                 <span className="input-label radio-label">

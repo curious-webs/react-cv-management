@@ -12,6 +12,13 @@ import { ImUser } from "react-icons/im";
 class NavBar extends Component {
   state = {};
 
+  componentDidUpdate = (prevProps) => {
+    console.log("NavBAr component NavBAr component NavBAr component NavBAr component is also updating");
+    console.log(prevProps);
+    if (prevProps.profileImg !== this.props.profileImg) {
+      this.setState({ profileImg: this.props.profileImg })
+    }
+  }
   logout = async () => {
     try {
       if (auth.getJwt()) {
@@ -54,15 +61,11 @@ class NavBar extends Component {
             </button>
           </div>
 
-          <div className="navBarSidebar" id="navBarSidebar" >
+          <div className="navBarSidebar text-white" id="navBarSidebar" >
             <div className="sidebar-header">
               <h3>Bootstrap Sidebar</h3>
             </div>
-            <ul>
-              <li>Some dummy items goes here</li>
-              <li>Some dummy items goes here</li>
-              <li>Some dummy items goes here</li>
-            </ul>
+           
           </div>
           <div
             className="navbar-collapse collapse justify-content-end"
@@ -79,7 +82,6 @@ class NavBar extends Component {
 
                     <div className="dropdown">
                       <button className="btn btn-primary dropdown-toggle nav-custom-btn" type="button" data-toggle="dropdown">
-                        <img className="nav-profile-img" src={user.profileImg} alt={user.userName} />
                         <span className="text-white">{user.userName}</span>
                       </button>
                       <ul className="dropdown-menu profile-dropdown">
