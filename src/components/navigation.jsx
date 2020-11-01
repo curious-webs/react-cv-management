@@ -9,15 +9,17 @@ import * as auth from './../services/authService';
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { ImUser } from "react-icons/im";
+import { connect } from 'react-redux';
+import userIcon from '../images/user-icon.jpg';
 class NavBar extends Component {
   state = {};
 
   componentDidUpdate = (prevProps) => {
-    console.log("NavBAr component NavBAr component NavBAr component NavBAr component is also updating");
-    console.log(prevProps);
-    if (prevProps.profileImg !== this.props.profileImg) {
-      this.setState({ profileImg: this.props.profileImg })
-    }
+    // console.log("NavBAr component NavBAr component NavBAr component NavBAr component is also updating");
+    // console.log(prevProps);
+    // if (prevProps.profileImg !== this.props.profileImg) {
+    //   this.setState({ profileImg: this.props.profileImg })
+    // }
   }
   logout = async () => {
     try {
@@ -46,8 +48,14 @@ class NavBar extends Component {
 
     const { user } = this.props;
     console.log("Here goes user in nav");
-
     console.log(user);
+
+    console.log("user profile value");
+    if(user && user.hasOwnProperty('profileImg')){
+      console.log(user.profileImg);
+    }
+  
+    console.log("ends pppppppppppppppppppppppppppppppppppppprofile img");
     return <React.Fragment>
       <nav className="navbar navbar-b navbar-trans navbar-expand-md fixed-top bg-dark-blue" id="mainNav">
         <div className="container-fluid">
@@ -65,7 +73,7 @@ class NavBar extends Component {
             <div className="sidebar-header">
               <h3>Bootstrap Sidebar</h3>
             </div>
-           
+
           </div>
           <div
             className="navbar-collapse collapse justify-content-end"
@@ -81,10 +89,12 @@ class NavBar extends Component {
                   <React.Fragment>
 
                     <div className="dropdown">
+                     <img className="nav-profile-img" src={user.profileImg ? user.profileImg : userIcon}  alt={user.userName}/>
                       <button className="btn btn-primary dropdown-toggle nav-custom-btn" type="button" data-toggle="dropdown">
                         <span className="text-white">{user.userName}</span>
                       </button>
                       <ul className="dropdown-menu profile-dropdown">
+
                         <li>
                           <Link to="/profile">
                             <ImUser />

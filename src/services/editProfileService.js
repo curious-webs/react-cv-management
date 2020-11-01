@@ -5,7 +5,7 @@ import * as auth from '../services/authService';
 const apiEndpoint = apiUrl + '/users/profile/edit';
 
 export function editProfile (user) {
-  console.log ('in editProfile function');
+  console.log ('in editProfile function checking user object values');
   console.log (user);
   return http.put (
     apiEndpoint,
@@ -15,9 +15,9 @@ export function editProfile (user) {
       // lastName: user.lastName,
       gender: user.gender,
       dateOfBirth: user.dateOfBirth,
-      phone:user.phone,
-      address: { 
-        address_name : user.address_name,
+      phone: user.phone,
+      address: {
+        address_name: user.address_name,
         address_line_1: user.address_line_1,
         address_line_2: user.address_line_2,
         city: user.city,
@@ -28,7 +28,7 @@ export function editProfile (user) {
         address_type: user.address_type,
         address_tag: user.address_tag,
         phone: {
-          primary: user.phone
+          primary: user.phone,
         },
       },
     },

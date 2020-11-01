@@ -77,7 +77,8 @@ class SignUp extends Form {
                     this.setState({ errors })
                     return errors
                 }
-
+// console.log("Here goes result");
+// console.log(result);  
                 if (result.status !== 200) {
                     result = result.data;
                     for (let key in result) {

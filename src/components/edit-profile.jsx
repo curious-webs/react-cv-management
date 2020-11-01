@@ -67,27 +67,27 @@ class EditProfile extends Form {
         //     console.log(e.response);
         // }
     }
-    // doSubmit = async (e) => {
-    //     console.log("do submit called")
-    //     e.preventDefault();
-    //     console.log(this.state.date);
-    //     try {
-    //         let result = await editProfile(this.props.fieldValues);
-    //         console.log("here goes result");
-    //         console.log(result);
-    //     } catch (e) {
-    //         console.log(e.message);
-    //         console.log(e.response);
-    //     }
+    doSubmit = async (e) => {
+        console.log("do submit called")
+        e.preventDefault();
+        console.log(this.state.date);
+        try {
+            let result = await editProfile(this.props.fieldValues);
+            console.log("here goes result");
+            console.log(result);
+        } catch (e) {
+            console.log(e.message);
+            console.log(e.response);
+        }
 
-    // }
+     }
     componentDidUpdate = () => {
         console.log("hehhhhhh ccoompone did mount in editProfile Component");
         console.log("also rendering state");
-         console.log(this.state);
+        console.log(this.state);
     }
     render() {
-      
+
         console.log(this.props);
         const today = new Date();
         return (<React.Fragment>
@@ -101,7 +101,26 @@ class EditProfile extends Form {
                             <span className="h6 as-title">Edit</span>
                         </div>
                         <form className="form" onSubmit={this.props.onFormSubmit}>
+                            <div className="as-image-wrap">
+                                {
+                                   !this.props.fieldValues.profileImg &&
+                                    this.props.fieldValues.data.hasOwnProperty("profileImg") &&
+                                    <img ref="file" className="as-profile-img"
+                                        src={this.props.fieldValues.data.profileImg}
+                                        alt={this.props.userName} />
+                                }
+                                {this.props.fieldValues.profileImg &&
+                                    <img ref="file"
+                                        className="as-profile-img"
+                                        src={this.props.fieldValues.profileImg}
+                                        alt={this.props.userName} />
+                                }
 
+                                {!this.props.fieldValues.data.profileImg &&
+                                    <img src={userIconImg} className="as-profile-img" alt="profile" />
+                                }
+                                {this.renderFileButton()}
+                            </div>
                             <div className="d-flex align-items-start as-body">
                                 <div className="profile-info as-fields-wrap">
                                     <ul className="d-flex align-items-center">

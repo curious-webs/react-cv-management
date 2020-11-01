@@ -9,7 +9,7 @@ import logo from './logo.svg';
 import './App.css';
 import Dashboard from './components/dashboard';
 import * as auth from './services/authService';
-
+import {connect} from 'react-redux';
 import NavBar from './components/navigation';
 import VerifyEmail from './components/verify-email';
 import ForgotPassword from './components/forgot-password';
@@ -18,12 +18,14 @@ import ResendVerificationLink from './components/resendVerificationLink';
 import ProfileDashboard from './components/profile-dashboard';
 import EditProfile from './components/edit-profile';
 import {updateProfileImg} from './services/profileImgService';
+import {withRouter} from 'react-router-dom';
 import {userInfo} from './services/userInfoService';
 import ChangePassword from './components/change-password';
 import Input from './components/common/Input';
 import Form from './components/common/form';
 import {handleChange} from './components/common/form';
 import UserContext from './context/userContext';
+import {updateStoreProfileImg } from './store/index';
 
 class App extends Component {
   state = {
@@ -37,13 +39,14 @@ class App extends Component {
     this.setState ({data: user.data});
   };
 
-
-  ComponentDidUpdate = async (prevProps) => {
-    console.log("app.js app.js  app.js  app.js  app.js  app.js Component did mount")
+  ComponentDidUpdate = async prevProps => {
+    // console.log (
+    //   'app.js app.js  app.js  app.js  app.js  app.js Component did mount'
+    // );
     let user = await userInfo (auth.getUser ());
     this.setState ({user: user.data});
-  }
- 
+  };
+
   handleAppChange = async ({currentTarget: input}) => {};
 
   handleProfileImage = async ({currentTarget: input}) => {
@@ -57,15 +60,20 @@ class App extends Component {
   render () {
     const {user} = this.state;
     console.log ('inside app file rendering app.js state');
+    console.log (user);
+    console.log ('inside app file rendering user in  app.js state');
     console.log (this.state.user);
+
+    console.log ('here goes data value of state');
+    console.log (this.props);
+    let userFromStore = this.props.data;
     return (
       <React.Fragment>
         <ToastContainer />
-        {auth.isLogin () && <NavBar user={this.state.user} />}
+        {auth.isLogin () && <NavBar user={userFromStore} />}
         <Switch>
           {auth.isLogin () &&
             <React.Fragment>
-            
 
               <Route path="/dashboard" component={Dashboard} />
               {/* <UserContext.Provider value={this.state.data}> */}
@@ -86,7 +94,6 @@ class App extends Component {
               />
               {/* </UserContext.Provider> */}
 
-            
               <Route
                 path="/change-password"
                 render={props => <ChangePassword user={user} />}
@@ -125,5 +132,15 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+let mapStateToProps = state => {
+  console.log (
+    'inside mapStateToProps state is from redux I guess  it is coming'
+  );
+  console.log (state);
+  return   {
+    data: state.data,
+    user : state.data
+  };
+};   
+export default withRouter (connect (mapStateToProps) (App));
+// export default App;

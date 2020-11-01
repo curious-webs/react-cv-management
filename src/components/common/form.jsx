@@ -270,7 +270,7 @@ console.log(this.context.gender);
               
                 <Input type="file" name="profileImg" value=""
                     accept="image/*"
-                    onChange={e=> {this.props.onFileChange(e);this.props.onFileAppChange(e)}}
+                    onChange={e=> {this.props.onFileChange(e)}}
                 />
             </React.Fragment>
 

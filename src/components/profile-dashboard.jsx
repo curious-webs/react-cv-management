@@ -19,7 +19,9 @@ import { toast } from 'react-toastify';
 import { withRouter } from "react-router-dom";
 import { updateProfileImg } from './../services/profileImgService';
 import UserContext from './../context/userContext';
+import store from '../store/index';
 const myJoi = Joi.extend(cNumber);
+
 class ProfileDashboard extends Form {
     state = {
         data: {},
@@ -75,7 +77,33 @@ class ProfileDashboard extends Form {
 
             console.log("here goes result");
             console.log(result);
-           this.setState({ data });
+            if (Object.keys(this.state.profileImg).length !== 0) {
+                console.log("here goes profileImg state");
+                console.log(this.state.profileImg);
+                const formData = new FormData();
+                formData.append(
+                    "profileImg",
+                    this.state.data.profileImg
+                );
+                console.log("here goes forData");
+                console.log(formData);
+                let imgUpdate = await updateProfileImg(formData);
+                console.log("here goes image updated");
+                console.log(imgUpdate);
+                data["profileImg"] = imgUpdate.data.profileImg;
+                this.setState({ data });
+                store.dispatch ({
+                    type: 'apiCall',
+                    payload: {
+                      url: '/posts',
+                      method: 'GET',
+                      onSucess: 'addPost',
+                      onError: 'apiCallFailed',
+                    },
+                  });
+
+
+            }
             toast.success("Profile Updated Successfully!!");
         } catch (e) {
             console.log("inside you catch block are");
@@ -96,7 +124,7 @@ class ProfileDashboard extends Form {
             formattedBirthDate = Moment(user.dateOfBirth).format("LL");
         }
         let { isButtonClicked } = this.state;
-        return (<React.Fragment>
+        return (<React.Fragment>  
             <div id="main-content" className="pt-5 bg-body-color fullheight">
                 <div className="profile-settings-wrap">
                     <div className="container">
