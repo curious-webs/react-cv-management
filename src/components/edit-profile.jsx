@@ -82,9 +82,10 @@ class EditProfile extends Form {
 
      }
     componentDidUpdate = () => {
-        console.log("hehhhhhh ccoompone did mount in editProfile Component");
-        console.log("also rendering state");
-        console.log(this.state);
+        console.log("Component Updated and rendering props value of store");
+       // console.log("also rendering state");
+        //console.log(this.state);
+        console.log(this.props);
     }
     render() {
 
@@ -119,7 +120,7 @@ class EditProfile extends Form {
                                 {!this.props.fieldValues.data.profileImg &&
                                     <img src={userIconImg} className="as-profile-img" alt="profile" />
                                 }
-                                {this.renderFileButton()}
+                                {this.renderFileButton("profileImg")}
                             </div>
                             <div className="d-flex align-items-start as-body">
                                 <div className="profile-info as-fields-wrap">

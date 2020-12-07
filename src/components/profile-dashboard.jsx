@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import React, { Component,useContext } from 'react';
+import React, { Component, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './common/form';
 import { sidebar } from './common/sidebar';
@@ -64,20 +64,31 @@ class ProfileDashboard extends Form {
     }
 
     doSubmit = async (e) => {
-    
+
         console.log("do submit called")
         e.preventDefault();
         console.log(this.state.data);
         let data = { ...this.state.data };
+
         try {
             console.log("inside try vlovk");
             let result = await editProfile(this.state.data);
-// console.log("hmm here we are after submitting lets update whole state of app.js")
-// console.log(userContext);
 
             console.log("here goes result");
             console.log(result);
-            if (Object.keys(this.state.profileImg).length !== 0) {
+            store.dispatch({
+                type: 'apiCall',
+                payload: {
+                    url: '/posts',
+                    method: 'GET',
+                    onSucess: 'addPost',
+                    onError: 'apiCallFailed',
+                },
+            });
+
+            console.log("not updating image and state variable value is");
+            console.log(this.state.profileImg);
+            if (this.state.profileImg) {
                 console.log("here goes profileImg state");
                 console.log(this.state.profileImg);
                 const formData = new FormData();
@@ -92,18 +103,20 @@ class ProfileDashboard extends Form {
                 console.log(imgUpdate);
                 data["profileImg"] = imgUpdate.data.profileImg;
                 this.setState({ data });
-                store.dispatch ({
+                store.dispatch({
                     type: 'apiCall',
                     payload: {
-                      url: '/posts',
-                      method: 'GET',
-                      onSucess: 'addPost',
-                      onError: 'apiCallFailed',
+                        url: '/posts',
+                        method: 'GET',
+                        onSucess: 'addPost',
+                        onError: 'apiCallFailed',
                     },
-                  });
+                });
 
 
             }
+
+           
             toast.success("Profile Updated Successfully!!");
         } catch (e) {
             console.log("inside you catch block are");
@@ -118,13 +131,14 @@ class ProfileDashboard extends Form {
         console.log(this.props);
         console.log("checking form component");
         console.log(this.props);
-        let user = this.state.data;
+      //  let user = this.state.data;
+      let user = this.props.user;
         let formattedBirthDate = "";
         if (user.dateOfBirth) {
             formattedBirthDate = Moment(user.dateOfBirth).format("LL");
         }
         let { isButtonClicked } = this.state;
-        return (<React.Fragment>  
+        return (<React.Fragment>
             <div id="main-content" className="pt-5 bg-body-color fullheight">
                 <div className="profile-settings-wrap">
                     <div className="container">
@@ -141,7 +155,7 @@ class ProfileDashboard extends Form {
                                                 <span className="h6 as-title">Profile Information</span>
                                             </div>
                                             <div className="d-flex align-items-center as-body">
-                                               
+
                                                 <div className="profile-info as-fields-wrap">
                                                     <ul className="d-flex align-items-center">
                                                         <li className="d-flex align-items-center  w-50 pr-2">

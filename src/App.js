@@ -16,6 +16,7 @@ import ForgotPassword from './components/forgot-password';
 import ResetPassword from './components/reset-password';
 import ResendVerificationLink from './components/resendVerificationLink';
 import ProfileDashboard from './components/profile-dashboard';
+import Cvs from './components/cvs';
 import EditProfile from './components/edit-profile';
 import {updateProfileImg} from './services/profileImgService';
 import {withRouter} from 'react-router-dom';
@@ -25,7 +26,9 @@ import Input from './components/common/Input';
 import Form from './components/common/form';
 import {handleChange} from './components/common/form';
 import UserContext from './context/userContext';
-import {updateStoreProfileImg } from './store/index';
+import {updateStoreProfileImg} from './store/index';
+import MyTest from './components/mytest';
+
 
 class App extends Component {
   state = {
@@ -34,9 +37,9 @@ class App extends Component {
   };
 
   componentDidMount = async () => {
-    let user = await userInfo (auth.getUser ());
-    this.setState ({user: user.data});
-    this.setState ({data: user.data});
+    // let user = await userInfo (auth.getUser ());
+    // this.setState ({user: user.data});
+    // this.setState ({data: user.data});
   };
 
   ComponentDidUpdate = async prevProps => {
@@ -74,20 +77,21 @@ class App extends Component {
         <Switch>
           {auth.isLogin () &&
             <React.Fragment>
-
+               
               <Route path="/dashboard" component={Dashboard} />
               {/* <UserContext.Provider value={this.state.data}> */}
-
+              <Route path="/mytest" component={MyTest}/>
               <Route
                 path="/editprofile"
                 render={props => <EditProfile {...props} />}
               />
+               <Route path="/mycv" component={Cvs} />
               <Route
                 path="/profile"
                 render={props => (
                   <ProfileDashboard
                     formComponent={<Form />}
-                    user={user}
+                    user={userFromStore}
                     onFileAppChange={this.handleProfileImage}
                   />
                 )}
@@ -137,10 +141,10 @@ let mapStateToProps = state => {
     'inside mapStateToProps state is from redux I guess  it is coming'
   );
   console.log (state);
-  return   {
+  return {
     data: state.data,
-    user : state.data
+    user: state.data,
   };
-};   
+};
 export default withRouter (connect (mapStateToProps) (App));
 // export default App;

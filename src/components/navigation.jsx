@@ -7,10 +7,11 @@ import { toast } from 'react-toastify';
 import { logout } from './../services/logoutService';
 import * as auth from './../services/authService';
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdDocument } from "react-icons/io";
 import { ImUser } from "react-icons/im";
 import { connect } from 'react-redux';
 import userIcon from '../images/user-icon.jpg';
+import Cvs from './cvs';
 class NavBar extends Component {
   state = {};
 
@@ -51,10 +52,10 @@ class NavBar extends Component {
     console.log(user);
 
     console.log("user profile value");
-    if(user && user.hasOwnProperty('profileImg')){
+    if (user && user.hasOwnProperty('profileImg')) {
       console.log(user.profileImg);
     }
-  
+
     console.log("ends pppppppppppppppppppppppppppppppppppppprofile img");
     return <React.Fragment>
       <nav className="navbar navbar-b navbar-trans navbar-expand-md fixed-top bg-dark-blue" id="mainNav">
@@ -89,7 +90,7 @@ class NavBar extends Component {
                   <React.Fragment>
 
                     <div className="dropdown">
-                     <img className="nav-profile-img" src={user.profileImg ? user.profileImg : userIcon}  alt={user.userName}/>
+                      <img className="nav-profile-img" src={user.profileImg ? user.profileImg : userIcon} alt={user.userName} />
                       <button className="btn btn-primary dropdown-toggle nav-custom-btn" type="button" data-toggle="dropdown">
                         <span className="text-white">{user.userName}</span>
                       </button>
@@ -103,6 +104,16 @@ class NavBar extends Component {
                              </span>
                           </Link>
                         </li>
+                        <li>
+                          <li>
+                            <Link to="/mycv">
+                              <IoMdDocument />
+                              <span className="link-text">
+                                My Cvs
+                              </span>
+                            </Link>
+                          </li>
+                        </li>
                         <li className="nav-item nav-logout-wrap">
                           {user
                             &&
@@ -112,6 +123,7 @@ class NavBar extends Component {
                             </a>
                           }
                         </li>
+
                       </ul>
                     </div>
 

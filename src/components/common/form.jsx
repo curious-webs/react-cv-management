@@ -1,4 +1,4 @@
-import React, { Component,useContext } from "react";
+import React, { Component, useContext } from "react";
 import _ from "lodash";
 import Joi from "joi";
 import Input from '../common/Input';
@@ -7,6 +7,7 @@ import Moment from 'moment';
 import myCustomJoi from 'joi-phone-number';
 import axios from 'axios';
 import UserContext from './../../context/userContext';
+import JoditEditor from "jodit-react";
 const myJoi = Joi.extend(myCustomJoi);
 class Form extends Component {
     state = {
@@ -60,12 +61,6 @@ class Form extends Component {
     }
     handleChange = async ({ currentTarget: input }) => {
 
-console.log("here in handle change function we are trying to modify context value right. Hope so it works");
-console.log(this.context);
-
-
-
-
         const errors = {};
 
         let errorMessage = this.validateField(input.name, input.value, this.schema);
@@ -91,9 +86,9 @@ console.log(this.context);
             let url = URL.createObjectURL(input.files[0]);
             console.log("here goes url");
             console.log(url);
-            let data = {...this.state.data};
+            let data = { ...this.state.data };
             data[input.name] = input.files[0];
-            this.setState({data, profileImg: url }, () => {
+            this.setState({ data, profileImg: url }, () => {
                 console.log("hey am completed and here is my val");
                 console.log(this.state);
             });
@@ -102,6 +97,30 @@ console.log(this.context);
             console.log("not an image lets show error");
         }
     }
+
+    handlePdfDocChange = async ({ currentTarget: input }) => {
+        console.log("handle File changed is called");
+        console.log(input);
+        // var file = input.refs.file.files[0];
+        // const isImg = this.validateImg(input.files[0]);
+        // if (isImg) {
+        console.log(input.files[0]);
+        let url = URL.createObjectURL(input.files[0]);
+        console.log("here goes url");
+        console.log(url);
+        let data = { ...this.state.data };
+        data[input.name] = input.files[0];
+        this.setState({data}, () => {
+            console.log("hey am completed and here is my val");
+            console.log(this.state);
+        });
+
+        // } else {
+        //     console.log("not an image lets show error");
+        // }
+    }
+
+
     handlePostalCode = async ({ currentTarget: input }) => {
 
         let service = await axios.get("https://app.zipcodebase.com/api/v1/search?apikey=71569e90-00b1-11eb-a9dc-1d931302706e", {
@@ -131,18 +150,35 @@ console.log(this.context);
         this.setState({ data, cities: [...new Set(cities)], states: [...new Set(state)], provinces: [...new Set(provinces)] });
     }
 
+    handleEditorChange = async (value) => {
+
+        let data = { ...this.state.data };
+        data["coverLetterText"] = value;
+
+        // console.log("setting data values");
+        // console.log(data);
+        this.setState({ data: data });
+
+    }
+
+    renderEditorButton = (name, label) => {
+        return <JoditEditor
+            name={name}
+            onChange={this.handleEditorChange}
+        />
+    }
+
+
     renderInput = (name, label, type = "text", fieldClass = "not-transparent", onBlurEvent = false) => {
-console.log("am here in renderig input");
-console.log(this.context.gender);
+        console.log("am here in renderig input");
+        console.log(this.context.gender);
 
         if (this.props.fieldValues) {
             // console.log("here goes field values");
             // console.log(this.props);
             // console.log(this.props.onChange); 
             const { errors, data } = this.props.fieldValues;
-            // console.log("here goes data");
-            // console.log(data);
-           
+            let fieldValue = data[name] ? data[name] : "";
             return (
                 <Input
                     name={name}
@@ -153,12 +189,15 @@ console.log(this.context.gender);
                     onChange={this.props.onValChange}
                     errors={errors[name]}
                     onBlur={onBlurEvent}
-                   
+
                 />
             );
         } else {
+
+
             const { errors, data } = this.state;
-            // console.log(data);
+            // console.log("Here goes data ....................................")
+            //  console.log(data);
             return (
                 <Input
                     name={name}
@@ -263,19 +302,39 @@ console.log(this.context.gender);
         }
     }
 
-    renderFileButton = () => {
-      
+    renderFileButton = (name) => {
+
         return (
             <React.Fragment>
-              
-                <Input type="file" name="profileImg" value=""
+
+                <Input type="file" name={name} value=""
                     accept="image/*"
-                    onChange={e=> {this.props.onFileChange(e)}}
+                    onChange={e => { this.props.onFileChange(e) }}
                 />
             </React.Fragment>
 
         )
     }
+
+
+
+    renderPDFDocButton = (name) => {
+
+        return (
+            <React.Fragment>
+
+                <Input type="file" name={name} value=""
+                     accept="application/pdf,application/msword,
+                     application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    onChange={e => { this.handlePdfDocChange(e) }}
+                />
+            </React.Fragment>
+
+        )
+    }
+
+
+
 
     renderButton = (name, type, fieldClass = "btn btn-info btn-block my-4", isGoBack) => {
         return (
@@ -308,6 +367,13 @@ console.log(this.context.gender);
         if (errors) return;
         this.doSubmit(e);
     }
+
+
+
+
+
+
+
 
 }
 
